@@ -27,6 +27,10 @@ function PersonData() {
             })
     }
 
+    const deleteAccount=(accountId)=>{
+            setUserAccount(userAccount.filter(user=> user.id !== accountId))
+    }
+
   return (
     <div className='flex gap-2'>
         <div className="m-5 w-[350px] flex flex-col gap-3">
@@ -43,35 +47,39 @@ function PersonData() {
                 <button onClick={SubmitAccount} className='bg-green-500 text-white p-2'>Sumbit Account</button>
             </div>
         </div>
-        <div className="w-full pr-5">
-            <h1 className='text-2xl font-bold mt-5'>User Account Info.</h1>
-            <table className='w-full mt-5'>
-                <thead>
-                    <tr className='bg-gray-100'>
-                        <th className='p-2'>ID</th>
-                        <th className='p-2'>Fullname</th>
-                        <th className='p-2'>Email</th>
-                        <th className='p-2'>Age</th>
-                        <th className='p-2'>Status</th>
-                        <th className='p-2'>Action</th>
-                    </tr>
-                </thead>
-                <tbody>
+
+        <div className="w-full m-5">
+            <h1 className='text-2xl font-bold'>User Accounts Info.</h1>
+            <div className="mt-3 w-full">
+                <table className='w-full'>
+                    <thead>
+                        <tr className='bg-gray-100'>
+                            <th className='p-2'>ID</th>
+                            <th className='p-2'>Fullname</th>
+                            <th className='p-2'>Email</th>
+                            <th className='p-2'>Age</th>
+                            <th className='p-2'>Status</th>
+                            <th className='p-2'>Action</th>
+                        </tr>
+                    </thead>
+                    <tbody>
                         {
                             userAccount.map((data, index)=>(
                                 <tr>
-                                    <td className='p-2 border-b-2 border-r-2'>{data.id}</td>
-                                    <td className='p-2 border-b-2'>{data.fullname}</td>
-                                    <td className='p-2 border-b-2'>{data.email}</td>
-                                    <td className='p-2 border-b-2'>{data.age}</td>
-                                    <td className='p-2 border-b-2'>{data.isActive===false ? 'Inactive' : 'active'}</td>
-                                    <td className='p-2 border-b-2 border-l-2'></td>
+                                    <td>{index + 1}</td>
+                                    <td>{data.fullname}</td>
+                                    <td>{data.email}</td>
+                                    <td>{data.age}</td>
+                                    <td className={`${data.isActive!==false?'text-green-500':'text-red-500'} font-bold`}>{ data.isActive!==false?'Online':'Offline'}</td>
+                                    <td><button onClick={()=>deleteAccount(data.id)} className='p-2 bg-red-500 text-white rounded-md'>Delete</button></td>
                                 </tr>
                             ))
                         }
                     </tbody>
-            </table>
+                </table>
+            </div>
         </div>
+
     </div>
   )
 }
